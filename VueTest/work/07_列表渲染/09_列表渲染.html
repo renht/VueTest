@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>09_列表渲染</title>
+</head>
+<body>
+
+<!--
+1. 遍历显示数组 : v-for / index
+2. 遍历显示对象 : v-for / key
+-->
+
+<div id="demo">
+
+  <h2>测试: v-for 遍历数组</h2>
+  <ul>
+    <li v-for="(person,index) in filterPersons">
+      {{person.name}}
+      <button @click="deleteItem(person)">删除</button>
+      <button @click="updateItem(person,{name:'韩1哈'})">更新</button>
+    </li>
+  </ul>
+  <hr>
+  <h2>测试: v-for 遍历对象</h2>
+  <ul>
+    <li v-for="(value,key) in persons[0]">{{key+":"+value}}</li>
+  </ul>
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+new Vue({
+    el:"#demo",
+    data:{
+        persons:[
+            {id:1,name:"韩哈1"},
+            {id:2,name:"唐哈1"},
+            {id:3,name:"王哈2"}
+        ]
+    },
+    methods:{
+        deleteItem(p){
+            var index = this.persons.indexOf(p);
+            this.persons.splice(index,1)
+        },
+        updateItem(oldP,newP){
+            var index = this.persons.indexOf(oldP);
+            this.persons.splice(index,1,newP)
+        }
+    },
+    computed:{
+        //对filterPersons进行计算，筛选出新的数组
+        filterPersons(){
+            return this.persons.filter(p=>p.name.indexOf('1')>0)
+        }
+    }
+})
+  /*
+  删除和跟新时不能使用index，筛选出新的数组后，index变化了，直接传对象，在计算，他的索引
+   */
+</script>
+</body>
+</html>

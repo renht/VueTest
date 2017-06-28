@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>15_动画</title>
+  <style>
+    .fade-enter-active, .fade-leave-active{
+      transition: opacity 2s;
+    }
+    .fade-enter,.fade-leave-to{
+      opacity: 0;
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <button @click="isShow=!isShow">Toggle</button>
+  <transition name="fade">
+    <span v-show="isShow">hello</span>
+  </transition>
+
+</div>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+  new Vue({
+      el:'#app',
+      data:{
+          isShow:true
+      }
+  })
+</script>
+</body>
+</html>
